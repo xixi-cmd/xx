@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Windows 10 如何运行红色警戒2 - WeiKe</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="weike,"> 
+    <meta name="description" content="私のすべてを支配してください,ddraw.dll 补丁Win10 运行ra2的必须的插件补丁：https://github.com/ciraos/ts-ddraw。git clone下载过后，在 vs里面打开.sln文件，运行。,"> 
+    <meta name="author" content="WeiKe_Joe"> 
+    <link rel="alternative" href="atom.xml" title="WeiKe" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">WeiKe</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://cn.weikecc.top"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">Windows 10 如何运行红色警戒2</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Windows 10 如何运行红色警戒2</h1>
+        <div class="stuff">
+            <span>一月 08, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/games/" rel="tag">games</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="ddraw-dll-补丁"><a href="#ddraw-dll-补丁" class="headerlink" title="ddraw.dll 补丁"></a>ddraw.dll 补丁</h2><p>Win10 运行ra2的必须的插件补丁：<a target="_blank" rel="noopener" href="https://github.com/ciraos/ts-ddraw">https://github.com/ciraos/ts-ddraw</a>。<br><code>git clone</code>下载过后，在 vs里面打开<code>.sln</code>文件，运行。不出意外的话，会编译出一个<code>ddraw.dll</code>文件，放到红警2或者尤里的复仇文件夹的根目录下，然后，启动游戏！</p>
+<p>Win8 同理！</p>
+<h2 id="游戏内分辨率"><a href="#游戏内分辨率" class="headerlink" title="游戏内分辨率"></a>游戏内分辨率</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;如果游戏内分辨率不对的话，就请看以下设置：</p>
+<ul>
+<li>Red Alert 2：<del>（红色警戒2原版，什么？共和国之辉？）</del>打开根目录的<code>ra2.ini</code>，找到<code>[video]</code>选项：</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Video]</span></span><br><span class="line"><span class="attr">VideoBackBuffer</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">AllowHiResModes</span>=<span class="literal">yes</span></span><br><span class="line"><span class="attr">AllowVRAMSidebar</span>=<span class="literal">no</span></span><br><span class="line"><span class="comment"># 以下数字改为自己电脑的分辨率（分别对应宽、高）：</span></span><br><span class="line"><span class="attr">ScreenWidth</span>=<span class="number">1280</span></span><br><span class="line"><span class="attr">ScreenHeight</span>=<span class="number">600</span></span><br><span class="line"><span class="attr">StretchMovies</span>=<span class="literal">no</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Yuri’s Revenge：（红色警戒2原版的官方资料片：尤里的复仇）</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;同理，打开根目录的<code>ra2md.ini</code>，找到<code>[video]</code>选项：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Video]</span></span><br><span class="line"><span class="attr">VideoBackBuffer</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">AllowHiResModes</span>=<span class="literal">yes</span></span><br><span class="line"><span class="attr">AllowVRAMSidebar</span>=<span class="literal">no</span></span><br><span class="line"><span class="comment"># 以下数字改为自己电脑的分辨率（分别对应宽、高）：</span></span><br><span class="line"><span class="attr">ScreenWidth</span>=<span class="number">1280</span></span><br><span class="line"><span class="attr">ScreenHeight</span>=<span class="number">600</span></span><br><span class="line"><span class="attr">StretchMovies</span>=<span class="literal">no</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;保存，进游戏。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;另外，如果发现进游戏以后，不显示右侧建筑栏，请不要慌，请往下看！<br>&nbsp;&nbsp;&nbsp;&nbsp;打开电脑设置，定位到<code>设置电脑分辨率</code>的地方，然后查看<code>缩放分辨率</code>是不是<code>100%</code>。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci=''
+        data-cs=''
+        data-r='suda'
+        data-o='xixi-cmd'
+        data-a='xixi-cmd'
+        data-d='true'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ddraw-dll-%E8%A1%A5%E4%B8%81"><span class="toc-number">1.</span> <span class="toc-text">ddraw.dll 补丁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%86%85%E5%88%86%E8%BE%A8%E7%8E%87"><span class="toc-number">2.</span> <span class="toc-text">游戏内分辨率</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>turtle - WeiKe</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="weike,"> 
+    <meta name="description" content="私のすべてを支配してください,
+写在前面其实我也不知道为什么我会写这个，本文涉及信号与传递，Python
+正题近期看到一个3年前的视频，1000个圆一笔画出一个Miku在观看完源码了以后，我发现这是这调用的是基本的goto,用了,"> 
+    <meta name="author" content="WeiKe_Joe"> 
+    <link rel="alternative" href="atom.xml" title="WeiKe" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">WeiKe</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://cn.weikecc.top"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">turtle</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">turtle</h1>
+        <div class="stuff">
+            <span>一月 29, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/turtle%E7%BB%98%E5%9B%BE/" rel="tag">turtle绘图</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1029753564,3088606435&fm=26&gp=0.jpg" alt="$cover"></p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>其实我也不知道为什么我会写这个，本文涉及信号与传递，Python</p>
+<h1 id="正题"><a href="#正题" class="headerlink" title="正题"></a>正题</h1><p>近期看到一个3年前的视频，1000个圆一笔画出一个Miku<br><img src="https://upimage.alexhchu.com/2021/01/29/8e684570c27ed.png"><br>在观看完源码了以后，我发现这是这调用的是基本的goto,用了傅里叶级函数（傅里叶级变化），那个视频中给出了分析，只要圆足够多，就可以画出任意的封闭曲线</p>
+<p>$f(x)=\frac{a_{0}}{2}+\sum\limits_{n=1}^{\infty}\left(a_{n}\cos{nx}+b_{n}\sin{nx}\right)$<br>任意满足狄利克雷条件的函数，其本身的傅里叶级数都是收敛的。也就是说，函数可以表示成无限个正弦函数和余弦函数和的形式。<br>假如说我我能把我们需要绘制的二维图像表现在复平面上，把它的轨迹表现成有关时间t的复函数，那么，横坐标的移动和纵坐标的移动都可以看作是关于时间t的函数。<br>$f(x)=\frac{a_{0}}{2}+\sum\limits_{n=1}^{\infty}\left(a_{n}\cos{nx}+b_{n}\sin{nx}\right)$</p>
+<p>$g(x)=\frac{c_{0}}{2}+\sum\limits_{n=1}^{\infty}\left(c_{n}\cos{nx}+d_{n}\sin{nx}\right)$</p>
+<p>以上的两个函数都是实函数,都可以展开成傅里叶级数</p>
+<p><img src="https://upimage.alexhchu.com/2021/01/29/adc081e42c3a6.png"><br>展开的公式太难写了，所以就截图了。<br>然后，我们对二维图像的轨迹<code>稍加处理</code>,发现这也是个傅里叶级展开式，只不过前面的系数变成了复数。这样子的解释不是证明，但是在傅里叶级变换的复数表示里，正弦函数都是可以通过余弦函数增加一个初始相位来表示，实函数的傅立叶变换才是傅立叶变换的特殊形式，这里不解释。</p>
+<p>$c_n=\int_{0}^{1}{e^{-2i\pi nt}f(t)dt}$<br>我们求得这些级数了以后，只需要把系数代回这个公式得到一个坐标<br><img src="https://upimage.alexhchu.com/2021/01/29/3738b0bd8a89a.png"><br>这时，就可以用turtle的goto函数移动到指定的坐标，达到绘制图形的目的<br><img src="https://upimage.alexhchu.com/2021/01/29/b285a835e0615.png"></p>
+<h2 id="值得思考的"><a href="#值得思考的" class="headerlink" title="值得思考的"></a>值得思考的</h2><p>同时函数的傅立叶变换相同，我们计算的级数越多，结果我们越接近我们原本绘制的轨迹，不联系的函数也可以进行傅里叶变换，配合turtle的penup和pendown函数，我们就可以得到断断续续线，绘制过程中的精度也不是越大越好，最佳精度和我们上面分析的级数有关系。</p>
+<h1 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h1><p>在Adobe illustrator里面设计好自己的图案</p>
+<div class='tip error'><p>图案要一笔带过，中间的线条可以重叠，可以急转弯，但是一定是一笔<p></div>
+然后保存为SVG。
+在SVG文件中
+
+<p><img src="https://upimage.alexhchu.com/2021/01/29/769f6cf2cd5f7.png"><br>把路径复制，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;path class=&quot;st0&quot; d=&#x27;............&#x27; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>把省略号中的复制,就是那一大串数字和字母的组合。<br>保存到ra开头的txt文件中，源码在下面<br><a target="_blank" rel="noopener" href="https://github.com/cereslibra/TurtleAndFourier">源码</a><br>接下来的，自己琢磨吧…</p>
+<h1 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 画个绿色的长虫</span></span><br><span class="line"><span class="keyword">import</span> turtle <span class="keyword">as</span> t</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">drawSnake</span>(<span class="params">radius, angle, length</span>):</span></span><br><span class="line">     t.seth(-<span class="number">40</span>)</span><br><span class="line">     <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">          t.circle(radius, angle)</span><br><span class="line">          t.circle(-radius, angle)</span><br><span class="line">     t.circle(radius, angle/<span class="number">2</span>)</span><br><span class="line">     t.fd(<span class="number">40</span>)</span><br><span class="line">     t.circle(<span class="number">16</span>, <span class="number">180</span>)</span><br><span class="line">     t.fd(<span class="number">40</span>*<span class="number">2</span>/<span class="number">3</span>)</span><br><span class="line">t.setup(<span class="number">650</span>, <span class="number">350</span>, <span class="number">200</span>, <span class="number">200</span>)</span><br><span class="line">t.penup()</span><br><span class="line">t.fd(-<span class="number">250</span>)</span><br><span class="line">t.pendown()</span><br><span class="line">t.pensize(<span class="number">25</span>)</span><br><span class="line">t.pencolor(<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line">drawSnake(<span class="number">40</span>, <span class="number">80</span>, <span class="number">4</span>)</span><br><span class="line">t.down()</span><br></pre></td></tr></table></figure>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci=''
+        data-cs=''
+        data-r='suda'
+        data-o='xixi-cmd'
+        data-a='xixi-cmd'
+        data-d='true'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%A3%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">正题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%BC%E5%BE%97%E6%80%9D%E8%80%83%E7%9A%84"><span class="toc-number">2.1.</span> <span class="toc-text">值得思考的</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BD%A9%E8%9B%8B"><span class="toc-number">4.</span> <span class="toc-text">彩蛋</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>

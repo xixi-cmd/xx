@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>gulp压缩 - WeiKe</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="weike,"> 
+    <meta name="description" content="私のすべてを支配してください,下载插件&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;下载gulp-cli：
+1npm install gulp-cli -g --save
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;接着,"> 
+    <meta name="author" content="WeiKe_Joe"> 
+    <link rel="alternative" href="atom.xml" title="WeiKe" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">WeiKe</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://cn.weikecc.top"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">gulp压缩</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">gulp压缩</h1>
+        <div class="stuff">
+            <span>三月 23, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/gulp/" rel="tag">gulp</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="下载插件"><a href="#下载插件" class="headerlink" title="下载插件"></a>下载插件</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;下载<code>gulp-cli</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-cli -g --save</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;接着，确认一下版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ gulp -v</span><br><span class="line">CLI version: 2.3.0</span><br><span class="line">Local version: 4.0.2</span><br></pre></td></tr></table></figure>
+
+<p><del>算了，你什么也没看见</del></p>
+<h3 id="压缩-html"><a href="#压缩-html" class="headerlink" title="压缩 html"></a>压缩 html</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;任选其一：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-htmlmin --save</span><br><span class="line">npm install gulp-htmlclean --save</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<code>gulp-htmlmin</code>的配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.pipe(htmlmin(&#123;</span><br><span class="line">    <span class="attr">removeComments</span>: <span class="literal">true</span>, <span class="comment">// 清除 HTML 註釋</span></span><br><span class="line">    <span class="attr">collapseWhitespace</span>: <span class="literal">true</span>, <span class="comment">// 壓縮 HTML</span></span><br><span class="line">    <span class="attr">collapseBooleanAttributes</span>: <span class="literal">true</span>, <span class="comment">// 省略布爾屬性的值 &lt;input checked=&quot;true&quot;/&gt; ==&gt; &lt;input /&gt;</span></span><br><span class="line">    <span class="attr">removeEmptyAttributes</span>: <span class="literal">true</span>, <span class="comment">// 刪除所有空格作屬性值 &lt;input id=&quot;&quot; /&gt; ==&gt; &lt;input /&gt;</span></span><br><span class="line">    <span class="attr">removeScriptTypeAttributes</span>: <span class="literal">true</span>, <span class="comment">// 刪除 &lt;script&gt; 的 type=&quot;text/javascript&quot;</span></span><br><span class="line">    <span class="attr">removeStyleLinkTypeAttributes</span>: <span class="literal">true</span>, <span class="comment">// 刪除 &lt;style&gt; 和 &lt;link&gt; 的 type=&quot;text/css&quot;</span></span><br><span class="line">    <span class="attr">minifyJS</span>: <span class="literal">true</span>, <span class="comment">// 壓縮頁面 JS</span></span><br><span class="line">    <span class="attr">minifyCSS</span>: <span class="literal">true</span>, <span class="comment">// 壓縮頁面 CSS</span></span><br><span class="line">    <span class="attr">minifyURLs</span>: <span class="literal">true</span></span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<code>gulp-htmlclean</code>的配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.pipe(htmlclean(&#123;</span><br><span class="line">    <span class="attr">protect</span>: <span class="regexp">/&lt;\!--%fooTemplate\b.*?%--&gt;/g</span>,</span><br><span class="line">    edit: <span class="function"><span class="keyword">function</span>(<span class="params">html</span>) </span>&#123; <span class="keyword">return</span> html.replace(<span class="regexp">/\begg(s?)\b/ig</span>, <span class="string">&#x27;omelet$1&#x27;</span>); &#125;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+
+<h3 id="压缩-css"><a href="#压缩-css" class="headerlink" title="压缩 css"></a>压缩 css</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;任选其一：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-clean-css --save</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<code>gulp-clean-css</code>的配置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(<span class="string">&#x27;minify-css&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(<span class="string">&#x27;./public/**/*.css&#x27;</span>)</span><br><span class="line">    .pipe(cleanCSS())</span><br><span class="line">    .pipe(gulp.dest(<span class="string">&#x27;./public&#x27;</span>))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="压缩-js"><a href="#压缩-js" class="headerlink" title="压缩 js"></a>压缩 js</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;任选其一：</p>
+<p><strong>重要：<code>gulp-babel</code>、<code>gulp-uglify</code>搭配食用!</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-tester --save</span><br><span class="line">npm install gulp-babel --save &amp;&amp; npm install gulp-uglify --save</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<code>gulp-tester</code>的配置：</p>
+<p><del>不好意思，<code>terser</code>配置没写，，哈哈哈哈。</del></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.pipe(terser())</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<code>gulp-babel</code>+<code>gulp-uglify</code>的配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.pipe(babel(&#123;<span class="attr">presets</span>: [<span class="string">&#x27;@babel/preset-env&#x27;</span>]&#125;))</span><br><span class="line">.pipe(uglify().on(<span class="string">&#x27;error&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;<span class="built_in">console</span>.log(e)&#125;))</span><br></pre></td></tr></table></figure>
+
+<h3 id="压缩-image"><a href="#压缩-image" class="headerlink" title="压缩 image"></a>压缩 image</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gulp-imagemin --save</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<code>gulp-imagemin</code>的配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.pipe(imagemin(&#123;</span><br><span class="line">      <span class="attr">optimizationLevel</span>: <span class="number">5</span>, <span class="comment">// 類型：Number  預設：3 取值範圍：0-7（優化等級）</span></span><br><span class="line">      <span class="attr">progressive</span>: <span class="literal">true</span>,    <span class="number">7</span><span class="comment">// 類型：Boolean 預設：false 無失真壓縮jpg圖片</span></span><br><span class="line">      <span class="attr">interlaced</span>: <span class="literal">false</span>,    <span class="comment">// 類型：Boolean 預設：false 隔行掃描gif進行渲染</span></span><br><span class="line">      <span class="attr">multipass</span>: <span class="literal">false</span>      <span class="comment">// 類型：Boolean 預設：false 多次優化svg直到完全優化</span></span><br><span class="line">    &#125;))</span><br></pre></td></tr></table></figure>
+
+<h2 id="gulpflie"><a href="#gulpflie" class="headerlink" title="gulpflie"></a>gulpflie</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;在你的博客根目录创建一个<code>gulpfile.js</code>的文件，格式如下：<br>&nbsp;&nbsp;&nbsp;&nbsp;并且根据你自己的插件安装情况，来进行配置：<br><code>Gulpfile.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Gulp 压缩 */</span></span><br><span class="line"><span class="comment">// gulp-cli</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">&#x27;gulp&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* html */</span></span><br><span class="line"><span class="comment">/* 如果是使用 htmlclean，请注释掉下面一行 */</span></span><br><span class="line"><span class="keyword">const</span> htmlmin = <span class="built_in">require</span>(<span class="string">&#x27;gulp-html-minifier-terser&#x27;</span>)</span><br><span class="line"><span class="comment">/* 同理 */</span></span><br><span class="line"><span class="comment">//const htmlclean = require(&#x27;gulp-htmlclean&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* css */</span></span><br><span class="line"><span class="keyword">const</span> cleanCSS = <span class="built_in">require</span>(<span class="string">&#x27;gulp-clean-css&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* js */</span></span><br><span class="line"><span class="comment">/* gulp-tester (如果使用 gulp-terser,把下面的//去掉) */</span></span><br><span class="line"><span class="comment">//const terser = require(&#x27;gulp-terser&#x27;);</span></span><br><span class="line"><span class="comment">/* babel (如果使用babel,把下面兩行註釋去掉) */</span></span><br><span class="line"><span class="comment">/* 重要：gulp-uglify + gulp-babel */</span></span><br><span class="line"><span class="keyword">const</span> uglify = <span class="built_in">require</span>(<span class="string">&#x27;gulp-uglify&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> babel = <span class="built_in">require</span>(<span class="string">&#x27;gulp-babel&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* image */</span></span><br><span class="line"><span class="keyword">const</span> imagemin = <span class="built_in">require</span>(<span class="string">&#x27;gulp-imagemin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 压缩 */</span></span><br><span class="line"><span class="comment">// ---------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 壓縮 html</span></span><br><span class="line">gulp.task(<span class="string">&#x27;minify-html&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(<span class="string">&#x27;./public/**/*.html&#x27;</span>, <span class="string">&#x27;./public/**/**/*.html&#x27;</span>, <span class="string">&#x27;./public/*.html&#x27;</span>)</span><br><span class="line">    <span class="comment">// 如果使用的是 htmlclean，则保留如下。</span></span><br><span class="line">    <span class="comment">/*.pipe(htmlclean(&#123;</span></span><br><span class="line"><span class="comment">        protect: /&lt;\!--%fooTemplate\b.*?%--&gt;/g,</span></span><br><span class="line"><span class="comment">        edit: function(html) &#123; return html.replace(/\begg(s?)\b/ig, &#x27;omelet$1&#x27;); &#125;</span></span><br><span class="line"><span class="comment">      &#125;))*/</span></span><br><span class="line">    <span class="comment">// 如果使用的是 htmlmin，则保留如下。</span></span><br><span class="line">    .pipe(htmlmin(&#123;</span><br><span class="line">      <span class="attr">removeComments</span>: <span class="literal">true</span>, <span class="comment">// 清除 HTML 註釋</span></span><br><span class="line">      <span class="attr">collapseWhitespace</span>: <span class="literal">true</span>, <span class="comment">// 壓縮 HTML</span></span><br><span class="line">      <span class="attr">collapseBooleanAttributes</span>: <span class="literal">true</span>,      <span class="comment">// 省略布爾屬性的值 &lt;input checked=&quot;true&quot;/&gt; ==&gt; &lt;input /&gt;</span></span><br><span class="line">      <span class="attr">removeEmptyAttributes</span>: <span class="literal">true</span>,          <span class="comment">// 刪除所有空格作屬性值 &lt;input id=&quot;&quot; /&gt; ==&gt; &lt;input /&gt;</span></span><br><span class="line">      <span class="attr">removeScriptTypeAttributes</span>: <span class="literal">true</span>,     <span class="comment">// 刪除 &lt;script&gt; 的 type=&quot;text/javascript&quot;</span></span><br><span class="line">      <span class="attr">removeStyleLinkTypeAttributes</span>: <span class="literal">true</span>,  <span class="comment">// 刪除 &lt;style&gt; 和 &lt;link&gt; 的 type=&quot;text/css&quot;</span></span><br><span class="line">      <span class="attr">minifyJS</span>: <span class="literal">true</span>,   <span class="comment">// 壓縮頁面 JS</span></span><br><span class="line">      <span class="attr">minifyCSS</span>: <span class="literal">true</span>,  <span class="comment">// 壓縮頁面 CSS</span></span><br><span class="line">      <span class="attr">minifyURLs</span>: <span class="literal">true</span></span><br><span class="line">    &#125;))</span><br><span class="line">    .pipe(gulp.dest(<span class="string">&#x27;./public&#x27;</span>))</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 压缩 css */</span></span><br><span class="line">gulp.task(<span class="string">&#x27;minify-css&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(<span class="string">&#x27;./public/**/*.css&#x27;</span>, <span class="string">&#x27;./public/mysource/**/*.css&#x27;</span>)</span><br><span class="line">    .pipe(cleanCSS())</span><br><span class="line">    .pipe(gulp.dest(<span class="string">&#x27;./public&#x27;</span>))</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 压缩 js */</span></span><br><span class="line"><span class="comment">// minify js - gulp-tester (如果使用 gulp-terser,把注释//去掉)</span></span><br><span class="line"><span class="comment">/* 重要：gulp-uglify + gulp-babel */</span></span><br><span class="line"><span class="comment">//gulp.task(&#x27;compress&#x27;, () =&gt;</span></span><br><span class="line"><span class="comment">//  gulp.src([&#x27;./public/**/*.js&#x27;, &#x27;!./public/**/*.min.js&#x27;])</span></span><br><span class="line"><span class="comment">//    .pipe(terser())</span></span><br><span class="line"><span class="comment">//    .pipe(gulp.dest(&#x27;./public&#x27;))</span></span><br><span class="line"><span class="comment">//)</span></span><br><span class="line"><span class="comment">// minify js - babel（ 如果不是使用babel,把下面註釋掉）</span></span><br><span class="line">gulp.task(<span class="string">&#x27;compress&#x27;</span>, <span class="function">() =&gt;</span></span><br><span class="line">  gulp.src([<span class="string">&#x27;./public/**/*.js&#x27;</span>, <span class="string">&#x27;!./public/**/*.min.js&#x27;</span>, <span class="string">&#x27;./public/mysource/**/*.js&#x27;</span>, <span class="string">&#x27;./public/*.js&#x27;</span>])</span><br><span class="line">    .pipe(babel(&#123;</span><br><span class="line">      <span class="attr">presets</span>: [<span class="string">&#x27;@babel/preset-env&#x27;</span>]</span><br><span class="line">    &#125;))</span><br><span class="line">    .pipe(uglify().on(<span class="string">&#x27;error&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(e)</span><br><span class="line">    &#125;))</span><br><span class="line">    .pipe(gulp.dest(<span class="string">&#x27;./public&#x27;</span>))</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 压缩 image */</span></span><br><span class="line"><span class="comment">// 壓縮 public/uploads 目錄內圖片</span></span><br><span class="line">gulp.task(<span class="string">&#x27;minify-images&#x27;</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  gulp.src(<span class="string">&#x27;./public/img/**/*.*&#x27;</span>, <span class="string">&#x27;./public/mysource/image/*.*&#x27;</span>)</span><br><span class="line">    .pipe(imagemin(&#123;</span><br><span class="line">      <span class="attr">optimizationLevel</span>: <span class="number">5</span>, <span class="comment">// 類型：Number  預設：3 取值範圍：0-7（優化等級）</span></span><br><span class="line">      <span class="attr">progressive</span>: <span class="literal">true</span>,    <span class="number">7</span><span class="comment">// 類型：Boolean 預設：false 無失真壓縮jpg圖片</span></span><br><span class="line">      <span class="attr">interlaced</span>: <span class="literal">false</span>,    <span class="comment">// 類型：Boolean 預設：false 隔行掃描gif進行渲染</span></span><br><span class="line">      <span class="attr">multipass</span>: <span class="literal">false</span>      <span class="comment">// 類型：Boolean 預設：false 多次優化svg直到完全優化</span></span><br><span class="line">    &#125;))</span><br><span class="line">    .pipe(gulp.dest(<span class="string">&#x27;./public/img&#x27;</span>))</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 執行 gulp 命令時執行的任務</span></span><br><span class="line">gulp.task(<span class="string">&#x27;default&#x27;</span>, gulp.parallel(</span><br><span class="line">  <span class="string">&#x27;compress&#x27;</span>, <span class="string">&#x27;minify-css&#x27;</span>, <span class="string">&#x27;minify-html&#x27;</span>, <span class="string">&#x27;minify-images&#x27;</span></span><br><span class="line">))</span><br></pre></td></tr></table></figure>
+
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;既然配置都设置好了！接下来就是真材实料的压缩了！<br>&nbsp;&nbsp;&nbsp;&nbsp;在<code>hexo g</code>之后，<code>hexo d</code>之前，加一句命令行<code>gulp</code>即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g &amp;&amp; gulp &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci=''
+        data-cs=''
+        data-r='suda'
+        data-o='xixi-cmd'
+        data-a='xixi-cmd'
+        data-d='true'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">下载插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9-html"><span class="toc-number">1.1.</span> <span class="toc-text">压缩 html</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9-css"><span class="toc-number">1.2.</span> <span class="toc-text">压缩 css</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9-js"><span class="toc-number">1.3.</span> <span class="toc-text">压缩 js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9-image"><span class="toc-number">1.4.</span> <span class="toc-text">压缩 image</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gulpflie"><span class="toc-number">2.</span> <span class="toc-text">gulpflie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-number">3.</span> <span class="toc-text">部署</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>

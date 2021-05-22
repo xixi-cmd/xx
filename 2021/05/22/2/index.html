@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>live2d-web - WeiKe</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="weike,"> 
+    <meta name="description" content="私のすべてを支配してください,
+转载于
+  隔壁Yun主题的猫九。
+
+萌萌哒的看板娘，以下资源来源于互联网，最底下会给出相关链接，[github示例](https://github.com/jianchengwang/live2,"> 
+    <meta name="author" content="WeiKe_Joe"> 
+    <link rel="alternative" href="atom.xml" title="WeiKe" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">WeiKe</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://cn.weikecc.top"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">live2d-web</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">live2d-web</h1>
+        <div class="stuff">
+            <span>五月 22, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/live2d/" rel="tag">live2d</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><img src="https://upimage.alexhchu.com/2020/11/22/0eb5ad431e18f.jpg" alt="$cover"></p>
+<div class="snote quote"><p class='p subtitle'>转载于</p>
+  隔壁Yun主题的猫九。
+</div>
+萌萌哒的看板娘，以下资源来源于互联网，最底下会给出相关链接，[github示例](https://github.com/jianchengwang/live2d_models)
+
+<span id="more"></span>
+
+<hr>
+<h3 id="使用方法-moc"><a href="#使用方法-moc" class="headerlink" title="使用方法  moc"></a>使用方法  moc</h3><h4 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 进入hexo根目录</span></span><br><span class="line">cd hexo-dir</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装hexo-helper-live2d</span></span><br><span class="line">npm install --save hexo-helper-live2d</span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建目录live2d_models</span></span><br><span class="line">mkdir live2d_models</span><br><span class="line"><span class="meta">#</span><span class="bash"> 把模型文件放进创建目录live2d_models，比如我这边下载的是index模型</span></span><br><span class="line">cd live2d_models &amp;&amp; wget index </span><br><span class="line"><span class="meta">#</span><span class="bash">重命名模型文件中的json文件，比如我下载的模型是index，所以model.json -&gt; index.model.json</span></span><br><span class="line">cd index </span><br><span class="line">mv model.json index.model.json</span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改配置文件</span></span><br><span class="line">vim hexo-dir/_config.yml </span><br><span class="line">live2d:</span><br><span class="line">   enable: true # 是否开启live2d</span><br><span class="line">   scriptFrom: local # 脚本从本地引入</span><br><span class="line">   pluginRootPath: live2dw/ # 插件在站点上的根目录(相对路径)</span><br><span class="line">   pluginJsPath: lib/ # 脚本文件相对与插件根目录路径</span><br><span class="line">   pluginModelPath: assets/ # 模型文件相对与插件根目录路径</span><br><span class="line">   tagMode: false # 标签模式, 是否仅替换 live2d tag标签而非插入到所有页面中</span><br><span class="line">   debug: false # 调试, 是否在控制台输出日志</span><br><span class="line">   model:</span><br><span class="line">       use: index # 填写放进live2d_models文件夹中的模型文件夹名字</span><br><span class="line">       scale: 1 # canvas 模型与canvas的缩放</span><br><span class="line">   display:</span><br><span class="line">       width: 150 # 宽度</span><br><span class="line">       height: 300 # 高度</span><br><span class="line">       position: left # 显示位置</span><br><span class="line">       hOffset: 0 #水平偏移</span><br><span class="line">       vOffset: -20 #垂直偏移</span><br><span class="line">   mobile:</span><br><span class="line">       show: true # 手机端是否显示</span><br><span class="line">       scale: 0.5 # 移动设备上的缩放</span><br></pre></td></tr></table></figure>
+
+<h4 id="Typecho"><a href="#Typecho" class="headerlink" title="Typecho"></a>Typecho</h4><p>下载<a target="_blank" rel="noopener" href="https://github.com/Dreamer-Paul/Pio">保罗的看板娘插件</a>，并上传到你的插件目录（一般为 <code>usr/plugins</code>）。进入你的网站后台，在顶部的“控制台”下找到“插件” -&gt; Pio -&gt; 启用。启用之后我们就可以开始设置啦！</p>
+<p><strong>引用模型</strong></p>
+<p>插件默认提供两种方式引用模型，一个是读取插件指定目录下的模型，还有一个是另外引用。对于新手，我们比较推荐放在插件目录的 <code>model</code> 文件夹下。只要你在本站下载模型，都已经为这个插件专门做过一定的优化处理啦。</p>
+<p><strong>显示不全？</strong></p>
+<p>待我们放好模型之后可能会发现，模型显示不太齐全。这是由于高宽度设置不正确导致的~ 由于插件默认的模型是 <code>Pio</code>，而其他模型的比例和它不同，所以我们就需要在插件目录下手动设置它的宽度和高度啦！这样我们的模型就能正常显示出来了！</p>
+<p><strong>遮住内容？</strong></p>
+<p>如果你用的主题默认在左侧有侧边栏，发现模型遮住了菜单，那么我们就可以在插件设置里面修改它的位置，这样就可以遮住你的内容啦！</p>
+<p>更多介绍详见：<a target="_blank" rel="noopener" href="https://paugram.com/coding/add-poster-girl-with-plugin.html">给你的博客增加动态看板娘</a></p>
+<h4 id="EmLog"><a href="#EmLog" class="headerlink" title="EmLog"></a>EmLog</h4><p>详见广树的文章 - <a target="_blank" rel="noopener" href="https://www.wikimoe.com/?post=76">博客通用版 Live2D 伊斯特瓦尔发布</a></p>
+<h4 id="其他平台"><a href="#其他平台" class="headerlink" title="其他平台"></a>其他平台</h4><p>其他平台可以通过修改插件或是修改模板的方式引用看板娘。这里的方法适用于 WordPress、EMLog、Z-Blog 甚至是静态网站。</p>
+<blockquote>
+<p>保罗的 <a target="_blank" rel="noopener" href="https://docs.paul.ren/pio">插件文档</a> 里已经提供了完整的独立版使用教程，你可以在不使用插件的情况下正常食用看板娘。以下方法仅简单引用了看板娘，但并不包含交互功能。</p>
+</blockquote>
+<p>下载 <a target="_blank" rel="noopener" href="https://github.com/journey-ad/live2d_src">来自玩水大佬的封装</a> 项目，我们会在 <code>src/lib</code> 目录下得到一个 <code>live2d.min.js</code> 。这个就是核心啦！</p>
+<p>然后在你的网页上添加一个 <code>canvas</code> 画布，一般放在 <code>footer.php</code> 即页尾文件里面。一般写成这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;canvas id=&quot;paul&quot; width=&quot;280&quot; height=&quot;250&quot;&gt;&lt;/canvas&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>id</code> 部分负责让脚本获得画布的位置，<code>width</code> 和 <code>height</code> 分别是宽度和高度，在这里设置你的模型宽高。</p>
+<p>然后我们就需要引用这个 JS 文件啦！方法也很简单，你把这个文件放在合适的位置，或是用 CDN 引用皆可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;live2d.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：要确认画布放在 <code>&lt;script&gt;</code> 的前面！</p>
+</blockquote>
+<p>接着我们再通过一段简单的代码来开始引用我们的模型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;loadlive2d(&#x27;paul&#x27;, &#x27;模型路径/model.json&#x27;);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样我们的网站上，就显示出自己的看板娘啦！</p>
+<p>细心的你肯定会发现，看板娘被放在了正常的位置显示了出来，而不是 “悬挂” 在页面的某个位置。我们通过添加一段简单的 CSS 就可以做到了！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#paul&#123;</span><br><span class="line">    left: 0;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    z-index: 520; /* 如果模型被遮住可以把它改的更大 */</span><br><span class="line">    position: fixed;</span><br><span class="line">    pointer-events: none; /* 防止遮住鼠标点击页面其他内容 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>于是我们网站上就有了自己的看板娘啦！</p>
+<hr>
+<h3 id="使用方法-moc3"><a href="#使用方法-moc3" class="headerlink" title="使用方法 moc3"></a>使用方法 moc3</h3><p>参考</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/HCLonely/Live2dV3">https://github.com/HCLonely/Live2dV3</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Yukariin/AzurLaneL2DViewer">https://github.com/Yukariin/AzurLaneL2DViewer</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!------ 位置可自定义 ------&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;Canvas&quot;</span> <span class="attr">style</span>=<span class="string">&quot;position: fixed; right: 10px; bottom: 10px;z-index: 99999999&quot;</span> <span class="attr">id</span>=<span class="string">&quot;L2dCanvas&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Pollyfill script --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/core-js-bundle@3.6.1/minified.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Live2DCubismCore script --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span> = <span class="string">&quot;https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Build script --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span> = <span class="string">&quot;./assets/js/live2dv3.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!------ 加载Live2d模型 | Load Live2d model ------&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> l2dv;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.onload = <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">    l2dv = <span class="keyword">new</span> L2dViewer(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">el</span>: <span class="built_in">document</span>.getElementById(<span class="string">&#x27;L2dCanvas&#x27;</span>),</span></span><br><span class="line"><span class="javascript">        <span class="attr">modelHomePath</span>: <span class="string">&#x27;./assets/model/moc3/&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// modelHomePath: &#x27;https://cdn.jsdelivr.net/gh/alg-wiki/AzurLaneL2DViewer@gh-pages/assets/&#x27;,</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">model</span>: <span class="string">&#x27;yichui_2&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// bgImg: &#x27;https://cdn.jsdelivr.net/gh/alg-wiki/AzurLaneL2DViewer@gh-pages/assets/bg/bg_church_jp.png&#x27;,</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">bgImg</span>: <span class="string">&#x27;./assets/image/bg/bg_1.png&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        <span class="attr">width</span>: <span class="number">500</span>,</span></span><br><span class="line"><span class="javascript">        <span class="attr">height</span>: <span class="number">300</span>,</span></span><br><span class="line"><span class="javascript">        <span class="attr">autoMotion</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">        <span class="attr">_finishedLoadModel</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> motionDiv = <span class="built_in">document</span>.getElementById(<span class="string">&quot;motionDiv&quot;</span>); </span></span><br><span class="line"><span class="javascript">          motionDiv.innerHTML = <span class="string">&quot;&quot;</span>;</span></span><br><span class="line"><span class="javascript">          l2dv.getMotions().forEach(<span class="function">(<span class="params">v,k</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> motionName = k;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span>(motionName.startsWith(<span class="string">&#x27;motions/&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="javascript">              motionName = motionName.replace(<span class="string">&#x27;motions/&#x27;</span>, <span class="string">&#x27;&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">            motionName = motionName.replace(<span class="string">&#x27;.motion3.json&#x27;</span>, <span class="string">&#x27;&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> bt = <span class="built_in">document</span>.createElement(<span class="string">&quot;button&quot;</span>);</span></span><br><span class="line"><span class="javascript">            bt.innerHTML = motionName; </span></span><br><span class="line"><span class="javascript">            bt.classList.add(<span class="string">&#x27;btnGenericText&#x27;</span>);</span></span><br><span class="line"><span class="javascript">            bt.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;                          <span class="comment">//绑定点击事件</span></span></span><br><span class="line"><span class="javascript">              l2dv.startMotion(k);</span></span><br><span class="line"><span class="javascript">            &#125;;</span></span><br><span class="line"><span class="javascript">            motionDiv.appendChild(bt);</span></span><br><span class="line"><span class="javascript">          &#125;)</span></span><br><span class="line"><span class="javascript">        &#125;,</span></span><br><span class="line"><span class="javascript">        <span class="attr">_onTap</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 点击canvas触发事件</span></span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    &#125;);</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="center">描述</th>
+<th align="center">默认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>el</code></td>
+<td align="center">[必需] DOM 对象或 jQuery 对象</td>
+<td align="center">要挂载Live2d模型的元素, 支持DOM选择器和jQuery选择器，例：<code>document.getElementById(&#39;L2dCanvas&#39;)</code>或<code>document.querySelector(&#39;#L2dCanvas&#39;)</code>或<code>$(&#39;#L2dCanvas&#39;)</code></td>
+<td align="center"><code>null</code></td>
+</tr>
+<tr>
+<td align="center"><code>modelHomePath</code></td>
+<td align="center">[必需] String</td>
+<td align="center">模型根目录</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="center"><code>model</code></td>
+<td align="center">[必需] String</td>
+<td align="center">初始显示模型</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="center"><code>bgImg</code></td>
+<td align="center">[可选] String</td>
+<td align="center">Canvas背景图片，有图片的话，Canvas的宽高会等于背景图片宽高</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="center"><code>width</code></td>
+<td align="center">[可选] Number</td>
+<td align="center">Canvas宽度，单位: <code>px</code></td>
+<td align="center">500</td>
+</tr>
+<tr>
+<td align="center"><code>height</code></td>
+<td align="center">[可选] Number</td>
+<td align="center">Canvas高度，单位: <code>px</code></td>
+<td align="center">00</td>
+</tr>
+<tr>
+<td align="center"><code>autoMotion</code></td>
+<td align="center">[可选] Boolean</td>
+<td align="center">是否自动随机触发Motion                    true</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">_finishedLoadModel</td>
+<td align="center">[可选] Function</td>
+<td align="center">模型加载完回调函数                      null</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>_onTap</code></td>
+<td align="center">[可选] Function</td>
+<td align="center">点击模型触发函数，为空的话会默认触发随机Motion        null</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<hr>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// L2dViewer 对外暴露的方法</span></span><br><span class="line"><span class="comment">// 获取模型信息</span></span><br><span class="line">public getModel(): LAppModel &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 加载模型</span></span><br><span class="line">public <span class="function"><span class="title">loadModel</span>(<span class="params">modelName: string</span>)</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 触发模型 motion</span></span><br><span class="line">public <span class="function"><span class="title">startMotion</span>(<span class="params">motionName: string</span>)</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 获取模型 motion</span></span><br><span class="line">public getMotions(): <span class="built_in">Map</span>&lt;any,any&gt; &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 设置模型背景</span></span><br><span class="line">public <span class="function"><span class="title">setBgImg</span>(<span class="params">bgImg: string</span>)</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>当然，你感兴趣的话，并且有一定的前端基础，建议自己构建 <strong>live2dv3.js</strong>，可以下载官方提供的<a target="_blank" rel="noopener" href="https://www.live2d.com/download/cubism-sdk/">Live2d Web Sdk</a>，里面已经包含一个简单示例了，</p>
+<p><strong>lappdefine.ts</strong>  定义基本的参数<br><strong>lappdelegate.ts</strong> 初始化,释放资源,事件绑定<br><strong>lapplive2dmanager.ts</strong> 模型的管理类,进行模型生成和废弃,事件的处理,模型切换.<br><strong>lappmodel.ts</strong> 模型类,定义模型的基本属性<br><strong>lappal.ts</strong> 读取文件,抽象文件数据(算是工具类)<br><strong>lappsprite.ts</strong> 动画精灵类,(有h5游戏开发应该了解)<br><strong>lapptexturemanager.ts</strong> 纹理管理类,进行图像读取和管理的类<br><strong>lappview.ts</strong> 视图类,生成模型的图像被lapplive2dmanager管理<br><strong>main.ts</strong> 主程序启动程序<br><strong>touchmanager.ts</strong> 事件的管理类(比如移动鼠标,点击鼠标,触摸屏触碰等)</p>
+<p>简单修改下就可以了，也可以参照我的<a target="_blank" rel="noopener" href="https://github.com/jianchengwang/todo-web/raw/master/live2d-web">demo代码</a></p>
+<h3 id="模型预览"><a href="#模型预览" class="headerlink" title="模型预览"></a>模型预览</h3><h4 id="梦象网站资源-moc"><a href="#梦象网站资源-moc" class="headerlink" title="梦象网站资源 moc"></a>梦象网站资源 moc</h4><h5 id="茵蒂克丝-index"><a href="#茵蒂克丝-index" class="headerlink" title="茵蒂克丝 index"></a>茵蒂克丝 index</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/index.jpg"></p>
+<p>动漫《魔法禁书目录》中女主角。有着银色的长发、绿色的眼瞳、雪白的肌肤，年龄约十四五岁，却有着可爱的幼儿体型。</p>
+<p>模型作者：未知<br>模型出处：网络搜集</p>
+<hr>
+<h5 id="尤莉-youri"><a href="#尤莉-youri" class="headerlink" title="尤莉 youri"></a>尤莉 youri</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/youri.jpg"></p>
+<p>尤莉是由 つくみず 创作的漫画《少女终末旅行》及其衍生作品中的登场角色。性格极度乐观，非常喜欢吃东西。</p>
+<p>模型作者：罐装猫粮君<br>模型出处：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av17779694">【Live2D工房】Vol.1 Part2 尤 脸扁再来一份 《少女终末旅行》</a></p>
+<hr>
+<h5 id="雪未来-snow-miku"><a href="#雪未来-snow-miku" class="headerlink" title="雪未来 snow_miku"></a>雪未来 snow_miku</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/snow_miku.jpg"></p>
+<p>雪未来是 Crypton 旗下虚拟歌手初音未来的二次创作系列造型，民间有时称其为 “雪初音” 或 “雪 MIKU”。自 2010 年被确立为日本北海道札幌冰雪节的应援角色。自 2012 年起，每年会以网络征集投票的形式决定新的雪未来人物形象。</p>
+<p>模型作者：未知<br>模型出处：网络搜集</p>
+<p>推荐设置：</p>
+<p>宽度：300<br>高度：300</p>
+<hr>
+<h5 id="凉风青叶-aoba"><a href="#凉风青叶-aoba" class="headerlink" title="凉风青叶 aoba"></a>凉风青叶 aoba</h5><h5 id=""><a href="#" class="headerlink" title=""></a><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/aoba.jpg"></h5><p>来自 New Game! 的凉风青叶和你见面啦！</p>
+<p>推荐设置：</p>
+<p>高度：250<br>宽度：200</p>
+<hr>
+<h5 id="工作中的血小板-platelet"><a href="#工作中的血小板-platelet" class="headerlink" title="工作中的血小板 platelet"></a>工作中的血小板 platelet</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/platelet.jpg"></p>
+<p>模型作者：Neko_KK<br>模型出处：Live2DViewer 创意工坊</p>
+<hr>
+<h5 id="干物妹小埋-umaru"><a href="#干物妹小埋-umaru" class="headerlink" title="干物妹小埋 umaru"></a>干物妹小埋 umaru</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/umaru.jpg"></p>
+<p>模型作者：未知<br>模型出处：未知</p>
+<p>推荐设置：</p>
+<p>高度：300<br>宽度：100</p>
+<h5 id="和泉纱雾-sagiri"><a href="#和泉纱雾-sagiri" class="headerlink" title="和泉纱雾 sagiri"></a>和泉纱雾 sagiri</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/sagiri.jpg"></p>
+<p>模型作者：oukaitou<br>模型出处：Live2DViewer 创意工坊</p>
+<p>推荐设置：</p>
+<p>高度：500<br>宽度：默认</p>
+<h5 id="康娜-kanna"><a href="#康娜-kanna" class="headerlink" title="康娜 kanna"></a>康娜 kanna</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/kanna.jpg"></p>
+<p>模型作者：oukaitou<br>模型出处：Live2DViewer 创意工坊</p>
+<hr>
+<h5 id="时崎狂三-kurumi"><a href="#时崎狂三-kurumi" class="headerlink" title="时崎狂三 kurumi"></a>时崎狂三 kurumi</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/kurumi.jpg"></p>
+<p>模型作者：未知<br>模型出处：约会大作战手游官网</p>
+<hr>
+<h5 id="雷姆-rem"><a href="#雷姆-rem" class="headerlink" title="雷姆 rem"></a>雷姆 rem</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/rem.jpg"></p>
+<p>提取自 <a target="_blank" rel="noopener" href="https://github.com/eeg1412/Live2dRem">广树的项目</a>。</p>
+<p>推荐设置：</p>
+<p>高度：275<br>宽度：230</p>
+<p>高度：335<br>宽度：280</p>
+<hr>
+<h5 id="香风智乃-chino"><a href="#香风智乃-chino" class="headerlink" title="香风智乃 chino"></a>香风智乃 chino</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/chino.jpg"></p>
+<p>香风智乃，漫画《请问您今天要来点兔子吗？》中及其衍生作品中女主角之一。咖啡店 Rabbit House 老板的孙女，13 岁的初中生。身形娇小却意外地能干，店内杂务也几乎由她一手包办，个性冷静又沉默寡言，但其实是在人际交往上有点笨拙。</p>
+<p>模型作者：Hernes_VR<br>模型出处：FaceRig 创意工坊</p>
+<hr>
+<h5 id="鹿目圆-madoka"><a href="#鹿目圆-madoka" class="headerlink" title="鹿目圆 madoka"></a>鹿目圆 madoka</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/madoka.jpg"></p>
+<p>鹿目圆是原创动画《魔法少女小圆》及其衍生作品中主角。就读于市立见泷原中学二年级的一位普通初中生。个头小巧可爱，性格温柔且为朋友着想。因为本身的潜质，而成为魔法少女。后成为神，消失在世界上。</p>
+<p>模型作者：未知<br>模型出处：网络搜集</p>
+<p>推荐设置：</p>
+<p>高度：300<br>宽度：230</p>
+<hr>
+<h5 id="22-娘全身版"><a href="#22-娘全身版" class="headerlink" title="22 娘全身版"></a>22 娘全身版</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/22.jpg"></p>
+<p>22 娘是娱乐向弹幕视频站点 Bilibili 的吉祥物。阳光元气娘，火拼有精神。对人热情、热心，但有些冒失。</p>
+<p>模型作者：未知<br>模型出处：网络搜集</p>
+<p>推荐设置：</p>
+<p>高度：400<br>宽度：150</p>
+<hr>
+<h5 id="涅普迪努-neptune"><a href="#涅普迪努-neptune" class="headerlink" title="涅普迪努 neptune"></a>涅普迪努 neptune</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/neptune.jpg"></p>
+<p>涅普迪努，又称 “涅普顿”。是《超次元游戏：海王星》等海王星系列游戏中紫色大陆 Planeptune 的守护女神。性格乐天、天真浪漫，很擅长调节气氛。有时会从女神的工作中翘班，经常懒懒的，但因为天生的性格原因，仍然受到周围人的欢迎。</p>
+<p>模型作者：未知<br>模型出处：网络搜集</p>
+<hr>
+<h4 id="Eikanya提取-moc3"><a href="#Eikanya提取-moc3" class="headerlink" title="Eikanya提取 moc3"></a>Eikanya提取 moc3</h4><p>这个大佬提取了很多，所以这里只列出我喜欢的部分模型，<a target="_blank" rel="noopener" href="https://jianchengwang.github.io/live2d_models/">在线预览</a></p>
+<h5 id="yichui-2"><a href="#yichui-2" class="headerlink" title="yichui_2"></a>yichui_2</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/yichui_2.jpg"></p>
+<hr>
+<h5 id="dujiaoshou-6"><a href="#dujiaoshou-6" class="headerlink" title="dujiaoshou_6"></a>dujiaoshou_6</h5><p><img src="https://github.com/jianchengwang/live2d_models/raw/main/_model_images/dujiaoshou_6.jpg"></p>
+<hr>
+<h3 id="资源来源"><a href="#资源来源" class="headerlink" title="资源来源"></a>资源来源</h3><p><a target="_blank" rel="noopener" href="https://www.live2d.com/zh-CHS/">Live2d官网</a></p>
+<p><a target="_blank" rel="noopener" href="https://mx.paugram.com/">梦象 Live2D 模型站</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Eikanya/Live2d-model">Eikanya/Live2d-model</a></p>
+<p><a target="_blank" rel="noopener" href="https://l2d.alg-wiki.com/">Azur Lane Live2D Viewer</a></p>
+<p><a target="_blank" rel="noopener" href="https://minhaskamal.github.io/DownGit/#/home">DownGit</a></p>
+<Vssue  />
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci=''
+        data-cs=''
+        data-r='suda'
+        data-o='xixi-cmd'
+        data-a='xixi-cmd'
+        data-d='true'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-moc"><span class="toc-number">1.</span> <span class="toc-text">使用方法  moc</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hexo"><span class="toc-number">1.1.</span> <span class="toc-text">Hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Typecho"><span class="toc-number">1.2.</span> <span class="toc-text">Typecho</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EmLog"><span class="toc-number">1.3.</span> <span class="toc-text">EmLog</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%B9%B3%E5%8F%B0"><span class="toc-number">1.4.</span> <span class="toc-text">其他平台</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-moc3"><span class="toc-number">2.</span> <span class="toc-text">使用方法 moc3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%A2%84%E8%A7%88"><span class="toc-number">3.</span> <span class="toc-text">模型预览</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A2%A6%E8%B1%A1%E7%BD%91%E7%AB%99%E8%B5%84%E6%BA%90-moc"><span class="toc-number">3.1.</span> <span class="toc-text">梦象网站资源 moc</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8C%B5%E8%92%82%E5%85%8B%E4%B8%9D-index"><span class="toc-number">3.1.1.</span> <span class="toc-text">茵蒂克丝 index</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%A4%E8%8E%89-youri"><span class="toc-number">3.1.2.</span> <span class="toc-text">尤莉 youri</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%AA%E6%9C%AA%E6%9D%A5-snow-miku"><span class="toc-number">3.1.3.</span> <span class="toc-text">雪未来 snow_miku</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%87%89%E9%A3%8E%E9%9D%92%E5%8F%B6-aoba"><span class="toc-number">3.1.4.</span> <span class="toc-text">凉风青叶 aoba</span></a></li><li class="toc-item toc-level-5"><a class="toc-link"><span class="toc-number">3.1.5.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E8%A1%80%E5%B0%8F%E6%9D%BF-platelet"><span class="toc-number">3.1.6.</span> <span class="toc-text">工作中的血小板 platelet</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B9%B2%E7%89%A9%E5%A6%B9%E5%B0%8F%E5%9F%8B-umaru"><span class="toc-number">3.1.7.</span> <span class="toc-text">干物妹小埋 umaru</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%92%8C%E6%B3%89%E7%BA%B1%E9%9B%BE-sagiri"><span class="toc-number">3.1.8.</span> <span class="toc-text">和泉纱雾 sagiri</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BA%B7%E5%A8%9C-kanna"><span class="toc-number">3.1.9.</span> <span class="toc-text">康娜 kanna</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%97%B6%E5%B4%8E%E7%8B%82%E4%B8%89-kurumi"><span class="toc-number">3.1.10.</span> <span class="toc-text">时崎狂三 kurumi</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%B7%E5%A7%86-rem"><span class="toc-number">3.1.11.</span> <span class="toc-text">雷姆 rem</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A6%99%E9%A3%8E%E6%99%BA%E4%B9%83-chino"><span class="toc-number">3.1.12.</span> <span class="toc-text">香风智乃 chino</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%B9%BF%E7%9B%AE%E5%9C%86-madoka"><span class="toc-number">3.1.13.</span> <span class="toc-text">鹿目圆 madoka</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#22-%E5%A8%98%E5%85%A8%E8%BA%AB%E7%89%88"><span class="toc-number">3.1.14.</span> <span class="toc-text">22 娘全身版</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B6%85%E6%99%AE%E8%BF%AA%E5%8A%AA-neptune"><span class="toc-number">3.1.15.</span> <span class="toc-text">涅普迪努 neptune</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Eikanya%E6%8F%90%E5%8F%96-moc3"><span class="toc-number">3.2.</span> <span class="toc-text">Eikanya提取 moc3</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#yichui-2"><span class="toc-number">3.2.1.</span> <span class="toc-text">yichui_2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dujiaoshou-6"><span class="toc-number">3.2.2.</span> <span class="toc-text">dujiaoshou_6</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%9D%A5%E6%BA%90"><span class="toc-number">4.</span> <span class="toc-text">资源来源</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>

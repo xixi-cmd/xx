@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>intro to serverless functions - WeiKe</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="weike,"> 
+    <meta name="description" content="私のすべてを支配してください,最近喵了下 Introduction to Serverless Functions 视频感觉还不错。下面主要根据视频作者Jason Lengstorf 的ppt 简单做下笔记，最底下会列出相关链接,"> 
+    <meta name="author" content="WeiKe_Joe"> 
+    <link rel="alternative" href="atom.xml" title="WeiKe" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">WeiKe</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://cn.weikecc.top"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">intro to serverless functions</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">intro to serverless functions</h1>
+        <div class="stuff">
+            <span>五月 22, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/serverless/" rel="tag">serverless</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>最近喵了下 <a target="_blank" rel="noopener" href="https://frontendmasters.com/courses/serverless-functions/">Introduction to Serverless Functions</a> 视频感觉还不错。下面主要根据视频作者<code>Jason Lengstorf</code> 的<code>ppt</code> 简单做下笔记，最底下会列出相关链接。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/jianchengwang/todo-web/raw/master/serverless/frontendmasters-serverless">示例代码</a> <a target="_blank" rel="noopener" href="https://demo-frontentedmaster-serverless-functions.netlify.app/">示例网站</a></p>
+<span id="more"></span>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>serverless</strong> 一般分为<strong>bass</strong>(Backend as a Service)和<strong>fass</strong>(Function as a Service)两种，今天我们主要学习一下<strong>fass</strong>，国内云厂商一般称为<strong>云函数</strong>。简单来说，就是依赖云厂商的平台建设，使我们只关注业务代码，不需要考虑服务器相关内容，也更容易的进行资源的弹性扩容，基于事件驱动，避免闲时资源浪费。</p>
+<p>当然有利也有弊，<strong>fass</strong>基于<strong>Data-shipping</strong>架构，即：<strong>将数据传输到代码所在处执行</strong>，而不是<strong>将代码传输到数据所在处执行</strong>，因为数据一般都比代码的传输量要大得多。而目前主流的 Faas 平台都是『<strong>将数据传输到代码所在处执行</strong>』这种架构，所以这是 Faas 的最大缺陷，同时也不好维护状态，事务啥的。</p>
+<p>所以，一般就作为一些公共基础建设，比如图片预处理，API网关数据拉取，这种<strong>无状态</strong>的<strong>独立功能</strong>函数。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>今天我们主要使用<strong>node.js</strong>构建我们的函数应用，所以你要先安装下<strong>node.js v12 or higher</strong>，</p>
+<p>需要云服务商<a target="_blank" rel="noopener" href="https://netlify.com/">Netlify</a>跟<a target="_blank" rel="noopener" href="https://hasura.io/">Hasura</a>提供服务，所以需要你有这两个网站的账号，都提供免费额度使用，所以无需担心费用问题。</p>
+<p>还需要，<a target="_blank" rel="noopener" href="http://www.omdbapi.com/">omdbapi</a>，提供模拟数据，所以创建一个<strong>API KEY</strong>即可，</p>
+<p>另外有的网站可能需要科学上网，这个需要你自己解决了。</p>
+<h2 id="搭建本地环境"><a href="#搭建本地环境" class="headerlink" title="搭建本地环境"></a>搭建本地环境</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> install the Netlify CLI <span class="keyword">for</span> <span class="built_in">local</span> development</span></span><br><span class="line">npm install -g netlify-cli@latest</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">clone</span> the starting point <span class="keyword">for</span> development</span></span><br><span class="line">git clone --branch start https://github.com/jlengstorf/frontendmasters-serverless.git</span><br><span class="line"><span class="meta">#</span><span class="bash"> recommended use vscode</span></span><br><span class="line">code frontendmasters-serverless</span><br><span class="line"><span class="meta">#</span><span class="bash"> create <span class="built_in">functions</span> dir</span></span><br><span class="line">cd frontendmasters-serverless</span><br><span class="line">mkdir functions</span><br><span class="line"><span class="meta">#</span><span class="bash"> cofnig <span class="built_in">functions</span> location</span></span><br><span class="line">vim netlify.toml</span><br><span class="line">[build]</span><br><span class="line">  command = &quot;npm run build&quot;</span><br><span class="line">  publish = &quot;_site&quot;</span><br><span class="line">  functions = &quot;functions&quot;</span><br></pre></td></tr></table></figure>
+
+<p>最终目录结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.eleventy.js</span><br><span class="line">.env # 环境变量</span><br><span class="line">.gitignore</span><br><span class="line">_site</span><br><span class="line">data # 静态数据</span><br><span class="line">functions # 函数目录</span><br><span class="line">netlify.toml # 配置文件</span><br><span class="line">node_modules</span><br><span class="line">package.json</span><br><span class="line">package-lock.json</span><br><span class="line">README.md</span><br><span class="line">src # 网站代码</span><br></pre></td></tr></table></figure>
+
+<p>这个看你使用哪个云厂商提供服务了，目录跟配置项可能不一样，本示例使用的是<a target="_blank" rel="noopener" href="https://www.netlify.com/products/functions/">Netlify Functions</a>，</p>
+<p>我们现在就来使用<strong>serverless functions</strong> 搭建一个简单的我看过的电影展示列表，网站静态页面跟样式已经有了，你可以启动服务看下效果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntl dev</span><br></pre></td></tr></table></figure>
+
+<h2 id="Boop"><a href="#Boop" class="headerlink" title="Boop"></a>Boop</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd functions</span><br><span class="line">vim boop.js</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.handler = <span class="function">(<span class="params">event, context, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// &quot;event&quot; has information about the path, body, headers, etc. of the request</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;event&#x27;</span>, event)</span><br><span class="line">  <span class="comment">// &quot;context&quot; has information about the lambda environment and user details</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;context&#x27;</span>, context)</span><br><span class="line">  <span class="comment">// The &quot;callback&quot; ends the execution of the function and returns a response back to the caller</span></span><br><span class="line">  <span class="keyword">return</span> callback(<span class="literal">null</span>, &#123;</span><br><span class="line">    <span class="attr">statusCode</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">body</span>: <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">      <span class="attr">data</span>: <span class="string">&#x27;Boop!&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，<strong>serverless functions</strong> 函数结构很简单，就是声明一个方法，预处理，然后执行回调函数。</p>
+<p>当然你直接使用<code>return</code> </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.handler = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">statusCode</span>: <span class="number">200</span>,</span><br><span class="line">        <span class="attr">body</span>: <span class="string">&#x27;Boop!&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，我们访问<code>http://localhost:8888/.netlify/functions/boop</code>，即可看到返回的数据了</p>
+<h2 id="获取本地数据"><a href="#获取本地数据" class="headerlink" title="获取本地数据"></a>获取本地数据</h2><p>现在我们要从本地，<code>data/movies.json</code> 获取数据，然后渲染在页面上，<code>functions</code> 目录下创建<code>movies.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  get movies from local json</span></span><br><span class="line"><span class="keyword">const</span> movies = <span class="built_in">require</span>(<span class="string">&#x27;../data/movies.json&#x27;</span>)</span><br><span class="line"><span class="built_in">exports</span>.handler = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">statusCode</span>: <span class="number">200</span>,</span><br><span class="line">        <span class="attr">body</span>: <span class="built_in">JSON</span>.stringify(moviesWithRatings),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后<code>src/index.html</code> 请求数据，渲染页面即可</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">initialize</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> movies = <span class="keyword">await</span> fetch(<span class="string">&#x27;/.netlify/functions/movies&#x27;</span>).then(<span class="function">(<span class="params">response</span>) =&gt;</span></span></span><br><span class="line"><span class="javascript">      response.json(),</span></span><br><span class="line"><span class="javascript">    );</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> container = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.movies&#x27;</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> template = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#movie-template&#x27;</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    movies.forEach(<span class="function">(<span class="params">movie</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> element = template.content.cloneNode(<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> img = element.querySelector(<span class="string">&#x27;img&#x27;</span>);</span></span><br><span class="line"><span class="javascript">      img.src = movie.poster;</span></span><br><span class="line"><span class="javascript">      img.alt = movie.title;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      element.querySelector(<span class="string">&#x27;h2&#x27;</span>).innerText = movie.title;</span></span><br><span class="line"><span class="javascript">      element.querySelector(<span class="string">&#x27;.tagline&#x27;</span>).innerText = movie.tagline;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      container.appendChild(element);</span></span><br><span class="line"><span class="javascript">    &#125;);</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="获取请求参数"><a href="#获取请求参数" class="headerlink" title="获取请求参数"></a>获取请求参数</h2><p>用过<code>event</code>参数获取，<code>functions</code> 目录下创建<code>movie-by-id.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> movies = <span class="built_in">require</span>(<span class="string">&#x27;../data/movies.json&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.handler = <span class="keyword">async</span>(&#123; queryStringParameters &#125;) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; id &#125; = queryStringParameters;</span><br><span class="line">    <span class="keyword">const</span> moive = movies.find(<span class="function"><span class="params">m</span> =&gt;</span> m.id === id);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!moive) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">statusCode</span>: <span class="number">404</span>,</span><br><span class="line">            <span class="attr">body</span>: <span class="string">&#x27;Not Found&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">statusCode</span>: <span class="number">200</span>,</span><br><span class="line">        <span class="attr">body</span>: <span class="built_in">JSON</span>.stringify(moive)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后访问<code>http://localhost:8888/.netlify/functions/movie-by-id?id=tt2975590</code></p>
+<p>当然<code>event</code>还包含很多其他信息，有兴趣的话可以喵下官方文档，或者，把<code>event</code>返回出来看看。</p>
+<h2 id="拉取OMDBAPI数据"><a href="#拉取OMDBAPI数据" class="headerlink" title="拉取OMDBAPI数据"></a>拉取OMDBAPI数据</h2><p>获取第三方接口，一般需要<strong>API-KEY</strong>提供凭证，一般配置在环境变量里面，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim .env</span><br><span class="line">OMDB_API_KEY=</span><br></pre></td></tr></table></figure>
+
+<p>这边使用<code>node-fetch</code>请求第三方接口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install node-fetch</span><br></pre></td></tr></table></figure>
+
+<p>我们这里，通过<strong>OMDBAPI</strong>获取影片的评分信息，调整<code>functions/movies.js</code>代码示例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; URL &#125; = <span class="built_in">require</span>(<span class="string">&#x27;url&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> fetch = <span class="built_in">require</span>(<span class="string">&#x27;node-fetch&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//  get movies from local json</span></span><br><span class="line"><span class="keyword">const</span> movies = <span class="built_in">require</span>(<span class="string">&#x27;../data/movies.json&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.handler = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> movieScoreApi = <span class="keyword">new</span> URL(<span class="string">&quot;https://www.omdbapi.com/&quot;</span>);</span><br><span class="line">    <span class="comment">// add the secret API key to the query string</span></span><br><span class="line">    movieScoreApi.searchParams.set(<span class="string">&#x27;apiKey&#x27;</span>, process.env.OMDB_API_KEY)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> promises = movies.map(<span class="function"><span class="params">movie</span> =&gt;</span> &#123;</span><br><span class="line">        movieScoreApi.searchParams.set(<span class="string">&#x27;i&#x27;</span>, movie.id);</span><br><span class="line">        <span class="keyword">return</span> fetch(movieScoreApi)</span><br><span class="line">        .then(<span class="function"><span class="params">response</span> =&gt;</span> response.json())</span><br><span class="line">        .then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> scores = data.Ratings;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                ...movie,</span><br><span class="line">                scores</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// awaiting all Promises lets the requests happen in parallel</span></span><br><span class="line">    <span class="comment">// see: https://lwj.dev/blog/keep-async-await-from-blocking-execution/</span></span><br><span class="line">    <span class="keyword">const</span> moviesWithRatings = <span class="keyword">await</span> <span class="built_in">Promise</span>.all(promises);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">statusCode</span>: <span class="number">200</span>,</span><br><span class="line">        <span class="attr">body</span>: <span class="built_in">JSON</span>.stringify(moviesWithRatings),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>src/index.html</code> 代码页面也做相应调整，这里就不多赘述。</p>
+<h2 id="Hasura-Graphql"><a href="#Hasura-Graphql" class="headerlink" title="Hasura Graphql"></a>Hasura Graphql</h2><p><code>movies.json</code>的数据到达一定量的话，一般会存到数据库便于管理，这边使用<strong>Hasura Graphql</strong>，创建一张表<code>movies</code>表存储，并将<code>movies.json</code>数据填充几条到<code>movies</code>表中。</p>
+<p>所以这边也要配置下<strong>Hasura Graphql</strong> 请求的环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim .env</span><br><span class="line">HASURA_API_URL=</span><br><span class="line">HASURA_ADMIN_SECRET=</span><br></pre></td></tr></table></figure>
+
+<p>关于<strong>Hasura Graphql</strong>的使用，语法等可以参考官方文档<a target="_blank" rel="noopener" href="https://hasura.io/docs/1.0/graphql/core/index.html">hasura graphql</a>，</p>
+<p><code>HASURA_ADMIN_SECRET</code> 其实就是<code>NEW ENV VARS</code>即可，</p>
+<p>首先我们写一个工具方法，用来调用<strong>Hasura Graphql</strong>接口，<code>functions/util/hasura.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fetch = <span class="built_in">require</span>(<span class="string">&#x27;node-fetch&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">query</span>(<span class="params">&#123; query, variables = &#123;&#125; &#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> fetch(process.env.HASURA_API_URL, &#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">        <span class="attr">headers</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;X-Hasura-Admin-Secret&#x27;</span>: process.env.HASURA_ADMIN_SECRET,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">body</span>: <span class="built_in">JSON</span>.stringify(&#123; query, variables &#125;),</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">response</span> =&gt;</span> response.json())</span><br><span class="line">    .catch(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(e);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// TODO send back helpful information if there are errors</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.info(result)</span><br><span class="line">    <span class="keyword">return</span> result.data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.query = query;</span><br></pre></td></tr></table></figure>
+
+<p>然后再调整一下，<code>functions/movies.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; query &#125; = <span class="built_in">require</span>(<span class="string">&#x27;./util/hasura&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.handler = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get movies from db</span></span><br><span class="line">    <span class="keyword">const</span> &#123; movies &#125; = <span class="keyword">await</span> query(&#123;</span><br><span class="line">        <span class="attr">query</span>: <span class="string">`</span></span><br><span class="line"><span class="string">            query &#123;</span></span><br><span class="line"><span class="string">                movies &#123;</span></span><br><span class="line"><span class="string">                    id</span></span><br><span class="line"><span class="string">                    title</span></span><br><span class="line"><span class="string">                    tagline</span></span><br><span class="line"><span class="string">                    poster</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        `</span>,</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    ...other code</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">statusCode</span>: <span class="number">200</span>,</span><br><span class="line">        <span class="attr">body</span>: <span class="built_in">JSON</span>.stringify(moviesWithRatings),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后再写个添加方法<code>functions/add-movie.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; query &#125; = <span class="built_in">require</span>(<span class="string">&#x27;./util/hasura&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.handler = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; id, title, tagline, poster &#125; = <span class="built_in">JSON</span>.parse(event.body);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> query(&#123;</span><br><span class="line">        <span class="attr">query</span>: <span class="string">`</span></span><br><span class="line"><span class="string">            mutation CreateMovie($id: String!, $poster: String!, $tagline: String!, $title: String!) &#123;</span></span><br><span class="line"><span class="string">                insert_movies_one(object: &#123;id: $id, poster: $poster, tagline: $tagline, title: $title&#125;) &#123;</span></span><br><span class="line"><span class="string">                    id</span></span><br><span class="line"><span class="string">                    poster</span></span><br><span class="line"><span class="string">                    tagline</span></span><br><span class="line"><span class="string">                    title</span></span><br><span class="line"><span class="string">                &#125;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        `</span>,</span><br><span class="line">        <span class="attr">variables</span>: &#123; id, title, tagline, poster &#125;,</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">statusCode</span>: <span class="number">200</span>,</span><br><span class="line">        <span class="attr">body</span>: <span class="built_in">JSON</span>.stringify(result),</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调整下添加页面，<code>src/admin.html</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">handleSubmit</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    event.preventDefault();</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> data = <span class="keyword">new</span> FormData(event.target);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> result = <span class="keyword">await</span> fetch(<span class="string">&#x27;/.netlify/functions/add-movie&#x27;</span>, &#123;</span></span><br><span class="line"><span class="javascript">      <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span></span><br><span class="line"><span class="javascript">      <span class="attr">body</span>: <span class="built_in">JSON</span>.stringify(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">id</span>: data.get(<span class="string">&#x27;id&#x27;</span>),</span></span><br><span class="line"><span class="javascript">        <span class="attr">title</span>: data.get(<span class="string">&#x27;title&#x27;</span>),</span></span><br><span class="line"><span class="javascript">        <span class="attr">tagline</span>: data.get(<span class="string">&#x27;tagline&#x27;</span>),</span></span><br><span class="line"><span class="javascript">        <span class="attr">poster</span>: data.get(<span class="string">&#x27;poster&#x27;</span>),</span></span><br><span class="line"><span class="javascript">      &#125;),</span></span><br><span class="line"><span class="javascript">    &#125;).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.querySelector(</span></span><br><span class="line"><span class="javascript">        <span class="string">&#x27;.message&#x27;</span>,</span></span><br><span class="line"><span class="javascript">      ).innerText = <span class="string">`Response: <span class="subst">$&#123;response.status&#125;</span> — <span class="subst">$&#123;response.statusText&#125;</span>`</span>;</span></span><br><span class="line"><span class="javascript">    &#125;);</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#add-movie&#x27;</span>).addEventListener(<span class="string">&#x27;submit&#x27;</span>, handleSubmit);</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Netlify-Identify"><a href="#Netlify-Identify" class="headerlink" title="Netlify Identify"></a>Netlify Identify</h2><p>网站一般要进行身份验证，然后不同身份认证有不同的操作权限。比如我的影片列表，我可以进行添加编辑操作，其他人只能进行浏览。所以，一般要引入身份认证，如果从头自己搞登录逻辑，可能比较繁琐，一般也是独立出一个认证的微服务。</p>
+<p>这边简单的使用<a target="_blank" rel="noopener" href="https://docs.netlify.com/visitor-access/identity/">Netlify Identify</a>来进行网站的身份认证，如果你使用其他云厂商，这部分可以略过</p>
+<p>此时需要我们先部署一个网站，你可以直接使用<code>netlify-cli</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ntl init</span><br></pre></td></tr></table></figure>
+
+<p>我这边不知道是因为网络原因还是啥的，<code>netlify-cli</code>认证不了，所以我直接登录<a target="_blank" rel="noopener" href="https://app.netlify.com/">app.netlify</a>操作了，部署后，可以直接<a target="_blank" rel="noopener" href="https://demo-frontentedmaster-serverless-functions.netlify.app/">在线访问</a>，</p>
+<p><strong>app.netlify</strong> 对应站点管理，对我们刚部署的站点启用<code>Identify</code>，</p>
+<p><strong>Netlify Identify</strong> 已经集成了UI界面，所以我们要引入 <a target="_blank" rel="noopener" href="https://github.com/netlify/netlify-identity-widget">netlify-identity-widget</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- include the widget --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://identity.netlify.com/v1/netlify-identity-widget.js&quot;</span>&gt;</span>&lt;/script &gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里，我只在<code>src/admin.html</code>  <code>src/login.html</code>引入了，</p>
+<p>这边我想要实现的效果是，用户登录才能访问<code>src/admin</code>页面进行添加电影的操作，</p>
+<p>首先，我们在<code>src/login.html</code> 添加如下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">data-netlify-identity-button</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;https://identity.netlify.com/v1/netlify-identity-widget.js&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="keyword">function</span> <span class="title">handleLogin</span>(<span class="params">user</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (!user || !user.token) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span>;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// if we get here, we have an active user; redirect to the admin page!</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.location.pathname = <span class="string">&#x27;/admin/&#x27;</span>;</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.netlifyIdentity.on(<span class="string">&#x27;init&#x27;</span>, handleLogin);</span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.netlifyIdentity.on(<span class="string">&#x27;login&#x27;</span>, handleLogin);</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>调整<code>src/admin.html</code> 代码，</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;https://identity.netlify.com/v1/netlify-identity-widget.js&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="keyword">function</span> <span class="title">handleIdentityEvent</span>(<span class="params">user</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (user &amp;&amp; user.token) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span>;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.location.pathname = <span class="string">&#x27;/login/&#x27;</span>;</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  netlifyIdentity.on(<span class="string">&#x27;init&#x27;</span>, handleIdentityEvent);</span></span><br><span class="line"><span class="javascript">  netlifyIdentity.on(<span class="string">&#x27;logout&#x27;</span>, handleIdentityEvent);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.logout&#x27;</span>).addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">    event.preventDefault();</span></span><br><span class="line"><span class="javascript">    netlifyIdentity.logout();</span></span><br><span class="line"><span class="javascript">  &#125;);</span></span><br><span class="line"><span class="javascript">    </span></span><br><span class="line"><span class="javascript">  ....</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="腾讯云函数"><a href="#腾讯云函数" class="headerlink" title="腾讯云函数"></a>腾讯云函数</h2><p>这里简单举个小例子，比如做一个返回json数据的接口，触发管理为<strong>API网关触发器</strong>，可以看到语言规范基本一致。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.main_handler = <span class="function">(<span class="params">event, context, callback</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(event)</span><br><span class="line">    <span class="built_in">console</span>.log(event[<span class="string">&quot;non-exist&quot;</span>])</span><br><span class="line">    <span class="built_in">console</span>.log(context)</span><br><span class="line">    callback(<span class="literal">null</span>, <span class="built_in">require</span>(<span class="string">&#x27;data/fooddata.js&#x27;</span>))</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>跟据自己的需要选择合适的云平台，当然也有很多完善云平台使用的<code>serverless</code>框架，</p>
+<p>本篇仅作为一个简单的入门<code>demo</code>，回调方法也不仅仅是返回<code>JSON</code>，也有很多<code>OUTPUT</code>形式，各个云平台也会跟据自己现有的服务，提供各种集成机制，感兴趣的自己自行扩展阅读。</p>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/serverless/serverless">github:serverless</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/anaibol/awesome-serverless">github:awesome-serverless</a></p>
+<p><a target="_blank" rel="noopener" href="https://frontendmasters.com/courses/serverless-functions/">Introduction to Serverless Functions</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/jlengstorf/frontendmasters-serverless">gihub:frontendmasters-serverless</a></p>
+<p><a href="netlify.com">netlify</a></p>
+<p><a target="_blank" rel="noopener" href="http://hasura.io/">hasura</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='true'
+        data-ci=''
+        data-cs=''
+        data-r='suda'
+        data-o='xixi-cmd'
+        data-a='xixi-cmd'
+        data-d='true'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">搭建本地环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Boop"><span class="toc-number">4.</span> <span class="toc-text">Boop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%9C%AC%E5%9C%B0%E6%95%B0%E6%8D%AE"><span class="toc-number">5.</span> <span class="toc-text">获取本地数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">获取请求参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%89%E5%8F%96OMDBAPI%E6%95%B0%E6%8D%AE"><span class="toc-number">7.</span> <span class="toc-text">拉取OMDBAPI数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hasura-Graphql"><span class="toc-number">8.</span> <span class="toc-text">Hasura Graphql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Netlify-Identify"><span class="toc-number">9.</span> <span class="toc-text">Netlify Identify</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0"><span class="toc-number">10.</span> <span class="toc-text">腾讯云函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="toc-number">11.</span> <span class="toc-text">相关链接</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>
